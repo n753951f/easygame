@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>超級跳跳 3D</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script type="importmap">
+    { "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js" } }
+  </script>
+</head>
+<body>
+  <canvas id="game"></canvas>
+
+  <!-- 遊戲中 HUD -->
+  <div id="hud" class="hidden">
+    <div class="hud-group">
+      <div class="pill"><span class="ico coin-ico"></span><span id="coins">0</span></div>
+      <div class="pill">命 × <span id="lives">3</span></div>
+      <div class="pill hearts" id="hearts"></div>
+    </div>
+    <div class="hud-group">
+      <div class="pill">分數 <span id="score">0</span></div>
+      <div class="pill">時間 <span id="time">0.0</span></div>
+    </div>
+  </div>
+  <div id="fps"></div>
+  <div id="toast"></div>
+
+  <!-- 主選單 -->
+  <div id="menu" class="overlay">
+    <div class="panel">
+      <h1>超級跳跳 <span>3D</span></h1>
+      <p class="sub">收集金幣、踩扁敵人，抵達終點拿到星星！</p>
+      <div class="controls">
+        <div><kbd>W A S D</kbd> / 方向鍵</div><div>移動</div>
+        <div><kbd>Space</kbd></div><div>跳躍（按住跳更高）</div>
+        <div><kbd>Shift</kbd></div><div>奔跑</div>
+        <div>連續落地起跳</div><div>二段跳、三段空翻跳</div>
+        <div>滑鼠 / <kbd>Q</kbd> <kbd>E</kbd></div><div>旋轉鏡頭（滾輪縮放）</div>
+        <div><kbd>P</kbd> / <kbd>Esc</kbd></div><div>暫停　<kbd>M</kbd> 靜音</div>
+      </div>
+      <p class="hint">也支援 Xbox / PS 手把</p>
+      <button id="start-btn" class="btn primary" disabled>載入中…</button>
+      <h3>排行榜</h3>
+      <ol id="menu-board" class="board"></ol>
+    </div>
+  </div>
+
+  <!-- 暫停 -->
+  <div id="pause" class="overlay hidden">
+    <div class="panel small">
+      <h2>暫停</h2>
+      <button id="resume-btn" class="btn primary">繼續遊戲</button>
+      <button id="restart-btn" class="btn">重新開始</button>
+      <button id="quit-btn" class="btn">回主選單</button>
+    </div>
+  </div>
+
+  <!-- 過關 -->
+  <div id="win" class="overlay hidden">
+    <div class="panel">
+      <h2>過關！</h2>
+      <div class="big-score" id="win-score">0</div>
+      <div class="detail" id="win-detail"></div>
+      <div class="submit-row">
+        <input id="player-name" maxlength="12" placeholder="輸入你的名字" autocomplete="off">
+        <button id="submit-btn" class="btn primary">上傳分數</button>
+      </div>
+      <div id="submit-msg" class="muted"></div>
+      <h3>排行榜</h3>
+      <ol id="win-board" class="board"></ol>
+      <button id="again-btn" class="btn">再玩一次</button>
+    </div>
+  </div>
+
+  <!-- 遊戲結束 -->
+  <div id="over" class="overlay hidden">
+    <div class="panel small">
+      <h2>GAME OVER</h2>
+      <p class="sub" id="over-detail"></p>
+      <button id="over-btn" class="btn primary">再試一次</button>
+    </div>
+  </div>
+
+  <div id="load-error" class="overlay hidden">
+    <div class="panel small">
+      <h2>無法載入遊戲引擎</h2>
+      <p class="sub">Three.js 需從網路 CDN 載入，請確認電腦可連上網際網路後重新整理頁面。<br>（離線使用方式請見 README.md）</p>
+    </div>
+  </div>
+
+  <script>
+    // 若 8 秒內遊戲模組沒有成功啟動（通常是 CDN 無法連線），顯示錯誤說明
+    setTimeout(function () {
+      if (!window.__gameReady) document.getElementById('load-error').classList.remove('hidden');
+    }, 8000);
+  </script>
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>

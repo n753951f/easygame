@@ -1,0 +1,2 @@
+# 禁止從網頁直接存取排行榜原始資料，只能透過 api/scores.php
+Require all denied

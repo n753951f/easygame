@@ -1,0 +1,8 @@
+# 排行榜資料（伺服器執行時自動產生）
+data/scores.json
+
+# 本機工具設定
+.claude/
+.vscode/
+.DS_Store
+Thumbs.db
